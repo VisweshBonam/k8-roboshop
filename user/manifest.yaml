@@ -3,7 +3,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  namespace: user
+  namespace: roboshop
   name: user
   labels:
     project: roboshop
@@ -18,7 +18,7 @@ data:
 ---
 # deployment
 
-apiVersion: apps/v1
+apiVersion: apps/v1-
 kind: Deployment
 metadata:
   namespace: roboshop
@@ -58,7 +58,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  namespace: user
+  namespace: roboshop
   name: user
   labels:
     project: roboshop
