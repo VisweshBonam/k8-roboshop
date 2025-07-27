@@ -1,0 +1,77 @@
+#Env Config-map
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  namespace: user
+  name: user
+  labels:
+    project: roboshop
+    environment: dev
+    tier: app
+    component: user
+
+data:
+    MONGO: "true" 
+    REDIS_URL: "redis://redis:6379" 
+    MONGO_URL: "mongodb://mongodb:27017/users"
+---
+# deployment
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: roboshop
+  name: user
+  labels:
+    project: roboshop
+    environment: dev
+    tier: app
+    component: user
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      project: roboshop
+      environment: dev
+      tier: app
+      component: user
+  
+  template:
+    metadata:
+      labels:
+        project: roboshop
+        environment: dev
+        tier: app
+        component: user
+    spec:
+      containers:
+        - name: user
+          image: visweshbonam/user:v1
+
+
+---
+
+# service
+
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: user
+  name: user
+  labels:
+    project: roboshop
+    environment: dev
+    tier: app
+    component: user
+spec:
+  selector:
+    project: roboshop
+    environment: dev
+    tier: app
+    component: user
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
