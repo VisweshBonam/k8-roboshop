@@ -1,3 +1,20 @@
+#ENV congig-Map
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  namespace: roboshop
+  name: catalogue
+  labels: 
+    project: roboshop
+    environment: dev
+    tier: app
+    component: catalogue
+data:
+  MONGO: "true" 
+  MONGO_URL: "mongodb://mongodb:27017/catalogue"
+
+---
 # deployment
 
 apiVersion: apps/v1
@@ -30,9 +47,13 @@ spec:
       containers:
         - name: catalogue
           image: visweshbonam/catalogue:v1
+      envFrom:
+      - configMapRef:
+          name: catalogue
 
 
 ---
+# service
 
 apiVersion: v1
 kind: Service
