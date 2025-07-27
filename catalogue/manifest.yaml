@@ -1,0 +1,57 @@
+# deployment
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:  
+  namespace: roboshop
+  name: catalogue
+  labels: # deployment labels
+    project: roboshop
+    environment: dev
+    tier: app
+    component: catalogue
+spec:
+  replicas: 1
+  selector:
+    matchLabels:   # These are the labels replica set use to create pod replicas, this should match pod labels
+      project: roboshop
+      environment: dev
+      tier: app
+      component: catalogue
+  
+  template:
+    metadata:
+      labels:  # these are the labels that replica set search while creating pods
+       project: roboshop
+       environment: dev
+       tier: app
+       component: catalogue
+    spec:
+      containers:
+        - name: catalogue
+          image: visweshbonam/catalogue:v1
+
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: roboshop
+  name: catalogue
+  labels:
+    project: roboshop
+    environment: dev
+    tier: app
+    component: catalogue
+spec:
+  selector:
+    project: roboshop
+    environment: dev
+    tier: app
+    component: catalogue
+  ports:
+    - protocol: TCP
+      port: 8080 # service port
+      targetPort: 8080 # container port
+     
