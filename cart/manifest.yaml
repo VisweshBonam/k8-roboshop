@@ -28,7 +28,7 @@ spec:
       containers:
         - name: cart
           image: visweshbonam/cart:v1
-
+---
 
 # service
 
