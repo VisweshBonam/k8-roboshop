@@ -8,6 +8,7 @@ metadata:
     project: roboshop
     environment: dev
     component: cart
+    tier: app
 spec:
   replicas: 1
   selector:
@@ -15,12 +16,14 @@ spec:
       project: roboshop
       environment: dev
       component: cart
+      tier: app
   template:
     metadata:
       labels:
         project: roboshop
         environment: dev
         component: cart
+        tier: app
     spec:
       containers:
         - name: cart
@@ -38,12 +41,13 @@ metadata:
     project: roboshop
     environment: dev
     component: cart
+    tier: app
 spec:
   selector:
     project: roboshop
     environment: dev
     component: cart
-
+    tier: app
   ports:
     - protocol: TCP
       port: 8080
