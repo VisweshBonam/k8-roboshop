@@ -1,0 +1,29 @@
+# deployment
+
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  namespace: roboshop
+  name: cart
+  labels:
+    project: roboshop
+    environment: dev
+    component: cart
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      project: roboshop
+      environment: dev
+      component: cart
+  template:
+    metadata:
+      labels:
+        project: roboshop
+        environment: dev
+        component: cart
+    spec:
+      containers:
+        - name: cart
+          image: visweshbonam/cart:v1
+    
