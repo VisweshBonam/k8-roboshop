@@ -47,9 +47,9 @@ spec:
       containers:
         - name: cart
           image: visweshbonam/cart:v1
-      envFrom:
-      - configMapRef:
-          name: cart
+          envFrom:
+          - configMapRef:
+              name: cart
 
           
 ---
