@@ -1,3 +1,22 @@
+# env config-map
+
+apiVersion: v1
+kind: ConfigMap 
+metadata:
+  namespace: roboshop
+  name: cart
+  labels:
+    project: roboshop
+    environment: dev
+    component: cart
+    tier: app
+data:
+  REDIS_HOST: "redis" 
+  CATALOGUE_HOST: "catalogue" 
+  CATALOGUE_PORT: "8080"
+
+---
+
 # deployment
 apiVersion: apps/v1
 kind: Deployment
@@ -28,6 +47,11 @@ spec:
       containers:
         - name: cart
           image: visweshbonam/cart:v1
+      envFrom:
+      - configMapRef:
+          name: cart
+
+          
 ---
 
 # service
