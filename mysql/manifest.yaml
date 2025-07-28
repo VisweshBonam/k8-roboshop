@@ -10,6 +10,7 @@ metadata:
     environment: dev
     tier: database
     component: mysql
+type: Opaque
 data:
   MYSQL_ROOT_PASSWORD: "Um9ib1Nob3BAMQ=="
 
@@ -47,7 +48,7 @@ spec:
         - name: mysql
           image: visweshbonam/mysql:v1
           envFrom:
-          - configMapRef:
+          - secretRef:
               name: mysql
 
 
