@@ -1,3 +1,19 @@
+# Secrets
+
+apiVersion: v1
+kind: Secret
+metadata:
+  namespace: roboshop
+  name: mysql
+  labels:
+    project: roboshop
+    environment: dev
+    tier: database
+    component: mysql
+data:
+  MYSQL_ROOT_PASSWORD: "Um9ib1Nob3BAMQ=="
+
+---
 # deployment
 
 apiVersion: apps/v1
@@ -30,9 +46,14 @@ spec:
       containers:
         - name: mysql
           image: visweshbonam/mysql:v1
+          envFrom:
+          - configMapRef:
+              name: mysql
+
 
 
 ---
+# services
 
 apiVersion: v1
 kind: Service
