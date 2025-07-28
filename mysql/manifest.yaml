@@ -1,0 +1,33 @@
+# deployment
+
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  namespace: roboshop
+  name: mysql
+  labels:
+    project: roboshop
+    environment: dev
+    tier: database
+    component: mysql
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      project: roboshop
+      environment: dev
+      tier: database
+      component: mysql
+  
+  template:
+    metadata:
+      labels:
+        project: roboshop
+        environment: dev
+        tier: database
+        component: mysql
+    spec:
+      containers:
+        - name: mysql
+          image: visweshbonam/mysql:v1
+  
