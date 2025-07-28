@@ -1,5 +1,4 @@
 # deployment
-
 apiVersion: apps/v1
 kind: Deployment
 metadata: 
@@ -26,4 +25,28 @@ spec:
       containers:
         - name: cart
           image: visweshbonam/cart:v1
+
+
+# service
+
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: roboshop
+  name: cart
+  labels:
+    project: roboshop
+    environment: dev
+    component: cart
+spec:
+  selector:
+    project: roboshop
+    environment: dev
+    component: cart
+
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+
     

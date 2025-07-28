@@ -8,7 +8,7 @@ metadata:
   labels: #deployment labels
     project: roboshop
     environment: dev
-    tier: database
+    tier: app
     component: mongodb
 spec:
   replicas: 1 # no of pods creating
@@ -16,7 +16,7 @@ spec:
     matchLabels:  # These are the labels replica set use to create pod replicas, this should match pod labels
       project: roboshop
       environment: dev
-      tier: database
+      tier: app
       component: mongodb
     
   template:
@@ -24,7 +24,7 @@ spec:
       labels: # these are the labels that replica set search while creating pods
         project: roboshop
         environment: dev
-        tier: database
+        tier: app
         component: mongodb
     spec:
       containers:
@@ -42,13 +42,13 @@ metadata:
   labels:
     project: roboshop
     environment: dev
-    tier: database
+    tier: app
     component: mongodb
 spec:
   selector:
     project: roboshop
     environment: dev
-    tier: database
+    tier: app
     component: mongodb
   ports:
     - protocol : TCP
