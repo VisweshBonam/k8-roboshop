@@ -29,4 +29,27 @@ spec:
       containers:
         - name: rabbitmq
           image: visweshbonam/rabbitmq:v1
-          
+
+---
+# Service
+
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: roboshop
+  name: rabbitmq
+  labels:
+    project: roboshop
+    environment: dev
+    tier: database
+    component: rabbitmq
+spec:
+  selector:
+    project: roboshop
+    environment: dev
+    tier: database
+    component: rabbitmq
+  ports:
+    - protocol: TCP
+      port: 5672
+      targetPort: 5672
