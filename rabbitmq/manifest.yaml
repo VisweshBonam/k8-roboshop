@@ -1,0 +1,32 @@
+# Deployment
+
+apiVersion: v1
+kind: Deployment
+metadata:
+  namespace: roboshop
+  name: rabbitmq
+  labels:
+    project: roboshop
+    environment: dev
+    tier: database
+    component: rabbitmq
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      project: roboshop
+      environment: dev
+      tier: database
+      component: rabbitmq
+  template:
+    metadata:
+      labels:
+        project: roboshop
+        environment: dev
+        tier: database
+        component: rabbitmq
+    spec:
+      containers:
+        - name: rabbitmq
+          image: visweshbonam/rabbitmq:v1
+          

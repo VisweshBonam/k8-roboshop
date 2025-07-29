@@ -1,0 +1,80 @@
+# ENV congig-map
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  namespace: roboshop
+  name: shipping
+  labels:
+    project: roboshop
+    environment: dev
+    tier: apps
+    component: shipping
+
+data:
+  CART_ENDPOINT: "cart:8080" 
+  DB_HOST: "mysql"
+
+---
+
+# deployment
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: roboshop
+  name: shipping
+  labels:
+    project: roboshop
+    environment: dev
+    tier: apps
+    component: shipping
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      project: roboshop
+      environment: dev
+      tier: apps
+      component: shipping
+  template:
+    metadata:
+      labels:
+        project: roboshop
+        environment: dev
+        tier: apps
+        component: shipping
+    
+    spec:
+      containers:
+        - name: shipping
+          image: visweshbonam/shipping:v1
+          envFrom:
+            - configMapRef:
+                name: shipping
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: roboshop
+  name: shipping
+  labels:
+    project: roboshop
+    environment: dev
+    tier: apps
+    component: shipping
+
+spec:
+  selector:
+    project: roboshop
+    environment: dev
+    tier: apps
+    component: shipping
+  
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
