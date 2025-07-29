@@ -1,0 +1,56 @@
+# deployment
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: roboshop
+  name: frontend
+  labels:
+    project: roboshop
+    tier: web
+    component: frontend
+    environment: dev
+spec:
+  selector:
+    matchLabels:
+      project: roboshop
+      tier: web
+      component: frontend
+      environment: dev
+  template:
+    metadata:
+      labels:
+        project: roboshop
+        tier: web
+        component: frontend
+        environment: dev
+    spec:
+      containers:
+        - name: frontend
+          image: visweshbonam/frontend:v1
+
+# service
+
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: roboshop
+  name: frontend
+  metadata:
+  labels:
+    project: roboshop
+    tier: web
+    component: frontend
+    environment: dev
+spec:
+  type: LoadBalancer
+  selector:
+    project: roboshop
+    tier: web
+    component: frontend
+    environment: dev
+  
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
