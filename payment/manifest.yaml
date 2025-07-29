@@ -28,6 +28,7 @@ metadata:
     environment: dev
     tier: app
     component: payment
+type: Opaque    
 data:
   AMQP_HOST: "cmFiYml0bXE=" 
   AMQP_USER: "cm9ib3Nob3A=" 
