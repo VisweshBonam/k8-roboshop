@@ -12,6 +12,7 @@ metadata:
     component: payment
 
 data:
+   CART_HOST: "cart"
    CART_PORT: "8080" 
    USER_HOST: "user" 
    USER_PORT: "8080" 
@@ -67,10 +68,10 @@ spec:
         - name: payment 
           image: visweshbonam/payment:v1
           envFrom:
-            - configMapRef:
-                name: payment
-            - secretRef:
-                name: payment
+          - configMapRef:
+              name: payment
+          - secretRef:
+              name: payment
 
 ---
 
