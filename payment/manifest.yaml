@@ -1,0 +1,98 @@
+# ENV config-map
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  namespace: roboshop
+  name: payment
+  labels:
+    project: roboshop
+    environment: dev
+    tier: app
+    component: payment
+
+data:
+   CART_PORT: "8080" 
+   USER_HOST: "user" 
+   USER_PORT: "8080" 
+
+# Secrets
+
+apiVersion: v1 
+kind: Secret
+metadata:
+  namespace: roboshop
+  name: payment
+  labels:
+    project: roboshop
+    environment: dev
+    tier: app
+    component: payment
+data:
+  AMQP_HOST: "cmFiYml0bXE=" 
+  AMQP_USER: "cm9ib3Nob3A=" 
+  AMQP_PASS: "cm9ib3Nob3AxMjM="
+
+
+# deployment
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: roboshop
+  name: payment
+  labels:
+    project: roboshop
+    environment: dev
+    tier: app
+    component: payment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      project: roboshop
+      environment: dev
+      tier: app
+      component: payment
+  template:
+    metadata: 
+      labels:
+        project: roboshop
+        environment: dev
+        tier: app
+        component: payment
+    spec:
+      containers:
+        - name: payment 
+          image: visweshbonam/payment:v1
+          envFrom:
+            - configMapRef:
+                name: payment
+            - secretRef:
+                name: payment
+
+---
+
+# service
+
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: roboshop
+  name: payment
+  labels:
+    project: roboshop
+    environment: dev
+    tier: app
+    component: payment
+spec:
+  selector:
+    project: roboshop
+    environment: dev
+    tier: app
+    component: payment
+
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
