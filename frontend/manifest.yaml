@@ -29,6 +29,7 @@ spec:
         - name: frontend
           image: visweshbonam/frontend:v1
 
+---
 # service
 
 apiVersion: v1
